@@ -16,5 +16,19 @@ add_executable(unit_tests tests/tests.cpp src/solution.cpp)
 # 3. Ejecutable de Benchmark
 add_executable(bench_app bench/benchmark.cpp src/solution.cpp)
 
+# Builds optimizados
+add_executable(main_app_O0 src/main.cpp src/solution.cpp)
+set_target_properties(main_app_O0 PROPERTIES COMPILE_FLAGS "-O0")
+
+add_executable(main_app_O2 src/main.cpp src/solution.cpp)
+set_target_properties(main_app_O2 PROPERTIES COMPILE_FLAGS "-O2")
+
+add_executable(main_app_Os src/main.cpp src/solution.cpp)
+set_target_properties(main_app_Os PROPERTIES COMPILE_FLAGS "-Os")
+
+# Build con sanitizers
+add_executable(main_app_san src/main.cpp src/solution.cpp)
+set_target_properties(main_app_san PROPERTIES COMPILE_FLAGS "-O1 -g -fsanitize=address,undefined")
+
 # Mensaje informativo al configurar
 message(STATUS "Configuración de PC1-PAREJA07 completa.")

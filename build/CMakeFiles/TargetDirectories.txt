@@ -1,0 +1,9 @@
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/main_app.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/unit_tests.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/bench_app.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/main_app_O0.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/main_app_O2.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/main_app_Os.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/main_app_san.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/edit_cache.dir
+C:/Users/Ananau/Documentos/Code.s/Github/pc1-pareja07/build/CMakeFiles/rebuild_cache.dir
