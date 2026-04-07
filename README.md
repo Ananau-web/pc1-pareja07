@@ -116,4 +116,9 @@ La inclusión de este benchmark justifica que para aplicaciones de alto rendimie
 
   
 
-### Qué se usó de Copilot y cómo se valido
+
+### Qué se usó de Copilot y cómo se validó
+
+Se utilizó GitHub Copilot como asistente de autocompletado para la sintaxis de C++ y para agilizar la escritura de los bucles iterativos en la función `maxCrossingSum`. Todo el código generado fue validado manualmente mediante:
+1. Análisis de complejidad algorítmica para confirmar que los bucles no rompieran el límite de O(n log n).
+2. Ejecución de la suite de pruebas unitarias (`tests.cpp`), verificando que los casos de frontera (arreglos con números negativos extremos) coincidieran al 100% con los resultados teóricos y con el Algoritmo de Kadane.
