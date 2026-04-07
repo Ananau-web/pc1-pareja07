@@ -1,0 +1,20 @@
+cmake_minimum_required(VERSION 3.10)
+project(MaximumSubarray_PC1)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Incluir directorios de cabecera
+include_directories(src)
+
+# 1. Ejecutable Principal
+add_executable(main_app src/main.cpp src/solution.cpp)
+
+# 2. Ejecutable de Pruebas (Tests)
+add_executable(unit_tests tests/tests.cpp src/solution.cpp)
+
+# 3. Ejecutable de Benchmark
+add_executable(bench_app bench/benchmark.cpp src/solution.cpp)
+
+# Mensaje informativo al configurar
+message(STATUS "Configuración de PC1-PAREJA07 completa.")
