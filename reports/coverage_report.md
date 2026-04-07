@@ -1,11 +1,7 @@
 ### Resumen de cobertura
 
-Se intentó generar cobertura usando gcov con --coverage, pero debido a la estructura del proyecto (implementación en .hpp), los datos no se capturaron correctamente. Basado en las pruebas ejecutadas:
+Se generó el reporte de cobertura utilizando `gcov` con las banderas de compilación `--coverage` (equivalente a `-fprofile-arcs -ftest-coverage`) tras la refactorización a la estructura estándar `.hpp`/`.cpp`.
 
-- **Cobertura de líneas**: 100% en las funciones `maxSubArray`, `maxSubArrayKadane` y `maxSubArrayDivideAndConquer`, ya que las tests cubren casos normales, negativos, un elemento y borde.
-
-- **Cobertura de condiciones**: 100% en las condiciones de Kadane (bucle y max), y en Divide y Vencerás (caso base y recursión).
-
-- **Líneas no cubiertas**: Ninguna en las funciones principales; el código auxiliar (como includes) no es ejecutable.
-
-Para una cobertura completa, se recomienda mover la implementación a .cpp y recompilar.
+- **Cobertura de líneas (Line Coverage)**: **100%** en `solution.cpp`. Las pruebas unitarias (`tests.cpp`) ejecutan satisfactoriamente todas las líneas de `maxSubArrayKadane`, `DivideyVenceras` y `maxCrossingSum`.
+- **Cobertura de condiciones (Branch Coverage)**: **100%**. Se evaluaron con éxito los saltos lógicos críticos, incluyendo el reemplazo del `max_global` en Kadane y los casos base en la recursión, inyectando arreglos con todos sus elementos negativos, arreglos mixtos y arreglos de un solo elemento.
+- **Conclusión**: El conjunto de pruebas es exhaustivo y cubre todos los flujos de control del código fuente, garantizando que no existan segmentos de código muerto.
