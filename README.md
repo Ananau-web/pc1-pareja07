@@ -2,8 +2,9 @@
 ![UNI](https://img.shields.io/badge/UNI-FC-green) ![C++](https://img.shields.io/badge/Language-C%2B%2B17-blue)
 
 ### 👥 Integrantes
-- **Rydell Jonel Mosquera Huayhua** 
 - **Joel Gustavo Carhuarica Aguilar**
+- **Rydell Jonel Mosquera Huayhua** 
+
 #### Competencia del curso Problema asignado
 
 Diseñar, implementar, analizar y sustentar el Maximum Subarray de arreglos, justificando formalmente su correctitud, complejidad y pertinencia práctica.
