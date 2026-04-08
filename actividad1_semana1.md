@@ -194,13 +194,16 @@
 2. ¿Qué quiere mostrar `stl_optimizacion_demostracion.cpp` con `reserve`, `nth_element`, `partial_sort` y `lower_bound`?
 
    `std::vector::reserve` (Gestión de Memoria):
-   antes de empezar, le dices al sistema operativo: _"Oye, voy a necesitar espacio para N elementos, dámelo todo ahora"_.
+     antes de empezar, le dices al sistema operativo: _"Oye, voy a necesitar espacio para N elementos, dámelo todo ahora"_.
+    reserve es decirle al sistema: "No me des el producto    todavía, pero asegúrame el almacén porque viene un cargamento grande y no quiero andar cambiando de local cada cinco minutos".
       `std::nth_element` (El k-ésimo menor o la Mediana)
-   hace magia algorítmica. Mueve los números de tal forma que el 50º elemento queda en su posición final correcta, dejando los menores a su izquierda y los mayores a su derecha (sin ordenar completamente ninguno de los dos lados).
+    actúa como un filtro inteligente: coloca el elemento k-ésimo exactamente donde le corresponde en el arreglo ordenado y deja todos los menores a su izquierda y los mayores a su derecha, sin molestarse en ordenar completamente ninguno de los dos lados.
+
       `std::partial_sort` (El problema del Top-K)
-   toma tu arreglo y **solo** ordena perfectamente los primeros $K$ elementos que le pidas.
+    ordena solamente los primeros 𝐾
+    K elementos como si fueran los mejores del arreglo, dejando el resto sin ordenar completo y así reduce el trabajo cuando solo necesitas el Top-K.
       `std::lower_bound` (El poder del orden previo)
-   Si tu arreglo **ya está ordenado**, usar `std::lower_bound` ejecuta una Búsqueda Binaria impecable bajo el capó. Corta el arreglo por la mitad repetidamente hasta dar con el número.
+     Si tu arreglo **ya está ordenado**, usar `std::lower_bound` ejecuta una Búsqueda Binaria impecable bajo el capó. Corta el arreglo por la mitad repetidamente hasta dar con el número.
 3. ¿Qué tipo de evidencia puede producir `resolver_ejercicios0_v4.2.sh`?
 
    - **1. Evidencia Ejecutiva (El Reporte Final):** Genera automáticamente el archivo `reporte_ejercicios0.md`, el cual contiene tablas comparativas en Markdown que resumen el éxito de compilación, tiempos de ejecución y tamaños de binarios. Es el artefacto principal para la toma de decisiones.
@@ -213,9 +216,9 @@
       
    - **5. Auditoría y Trazabilidad del Compilador:** Conserva un registro absoluto de los procesos de construcción (`*.compile.log` y `*.link.log`). El conteo automatizado de _warnings_ bajo distintos niveles de optimización (como variables no inicializadas reveladas en `-O2`) sirve como prueba de un código limpio y robusto.
 4. ¿Qué limitaciones de entorno menciona `INSTRUCCIONES_Ejercicios0_v4.2.md`?
-   - **Fallo en Sanitizers:** Herramientas como ASan, UBSan o TSan pueden no enlazar (linkear) correctamente al intentar compilar.
+   - **Fallo en Sanitizers:** Herramientas como ASan, UBSan o TSan pueden no enlazar (linkear) correctamente al intentar compilar,de modo que la compilación se rompe antes de generar binarios utilizables.
       
-   - **Problemas con `gcov` (Cobertura):** Puede que la herramienta necesite ajustes adicionales o configuraciones extra según el entorno específico para funcionar bien.
+   - **Problemas con `gcov` (Cobertura):** gcov puede requerir ajustes extras o configuración especial del compilador/entorno para producir resultados válidos.
       
    - **Fallo en `gprof` (Profiling):** Es común que directamente falle al ejecutarse o que genere archivos de perfil vacíos o inútiles.
 
@@ -235,7 +238,7 @@ Respondan esta pregunta final:
 
    2. Afirmación de Correctitud
    
-      Mientras que en la Semana 1 la correctitud se demuestra mediante lógica formal e invariantes (probando matemáticamente que el diseño es infalible), en el mundo experimental la correctitud asume el diseño como válido pero audita la implementación. Utilizando herramientas empíricas (como Sanitizers y métricas de Coverage), demostramos que la traducción a C++ no ha introducido comportamientos indefinidos (UB), fugas de memoria o condiciones de carrera durante la ejecución.
+      En Semana 1 la correctitud se justifica con lógica formal e invariantes de bucle. En la etapa experimental se asume el diseño y se audita la implementación: se usan Sanitizers y cobertura para comprobar que el código no introduce UB, fugas o errores de memoria.
 
    3. Afirmación de Costo
 
@@ -247,8 +250,7 @@ Respondan esta pregunta final:
 
    5. Advertencia Metodológica
    
-      A pesar del poder de las métricas, los benchmarks y las pruebas empíricas solo muestran cómo se comporta el sistema bajo un caso de prueba específico y en una arquitectura concreta. Como advertencia metodológica irrefutable: lograr un tiempo de ejecución bajo o un 100% de cobertura en gcov prueba la presencia de un buen rendimiento bajo esas condiciones, pero jamás garantiza la ausencia absoluta de errores lógicos o de rendimiento ante casos extremos (edge cases) que el diseñador de las pruebas no haya anticipado.   
-
+      Los benchmarks y pruebas empíricas solo hablan del comportamiento bajo casos y arquitecturas concretas. Tener un buen tiempo de ejecución o 100% de cobertura no garantiza que el programa sea correcto para todos los casos extremos no considerados.
 
 ### Autoevaluación (Versión Breve)
 
