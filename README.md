@@ -1,24 +1,20 @@
 # 🔬 Máximo Subarreglo Contiguo - Proyecto PC1
-![UNI](https://img.shields.io/badge/UNI-FC-green) ![C++](https://img.shields.io/badge/Language-C%2B%2B17-blue)
 
-### 👥 Integrantes
-- **Joel Gustavo Carhuarica Aguilar**
-- **Rydell Jonel Mosquera Huayhua** 
+#### 👥 Integrantes
+- Rydell Jonel Mosquera Huayhua
+- Joel Gustavo Carhuarica Aguilar
 
 #### Competencia del curso Problema asignado
-
 Diseñar, implementar, analizar y sustentar el Maximum Subarray de arreglos, justificando formalmente su correctitud, complejidad y pertinencia práctica.
 
-
 #### Enlace al enunciado de LeetCode
-<a href="https://leetcode.com/problems/maximum-subarray/"
+<a href="https://leetcode.com/problems/maximum-subarray/">LeetCode - Maximum Subarray</a>
 
 #### Especificación breve del problema
-Desarrollar un algoritmo que calcule la maxima suma de un arreglo mediante el metodo "Divide y Venceras". El programa solicita de las librerias <vector>,<limits>,<algorithm> que contienen herramientas ya programadas.
+Desarrollar un algoritmo que calcule la maxima suma de un arreglo mediante el metodo "Divide y Venceras". El programa solicita de las librerias `<vector>`, `<limits>`, `<algorithm>` que contienen herramientas ya programadas.
 
 #### Entrada y salida
 **Entrada**: Un conjunto de n números enteros almacenados en un vector.
-
 **Salida**: Un valor entero que representa la máxima suma posible de cualquier subarreglo contiguo dentro del vector de entrada.
 
 #### Tamaño de entrada relevante
@@ -44,83 +40,4 @@ Propiedad: "Al inicio de cada iteración i, la variable max_global contiene la s
 3. Terminación: El bucle finaliza cuando i=nums.size(). Según el invariante, en este punto max_global ha comparado todos los posibles "máximos locales" de todo el arreglo, garantizando que el valor retornado sea la suma máxima absoluta.
 
 #### Monotonicidad, cuando aplique
-1. Progreso del Bucle: En el algoritmo de Kadane, el índice de iteración i sigue una progresión monótona creciente, lo que garantiza que el algoritmo recorra el espacio de búsqueda de forma exhaustiva y termine al alcanzar el límite n.
-2. Convergencia Recursiva: En el enfoque de Divide y Vencerás, la longitud del segmento procesado (right−left+1) es monótonamente decreciente en cada nivel de recursión. Esto asegura la convergencia hacia el caso base, evitando recursiones infinitas.
-3. Complejidad: Las funciones de costo computacional de ambos métodos son monótonas respecto al tamaño de la entrada, lo que permite una predicción estable del rendimiento del sistema ante el crecimiento de los datos.
-
-#### Complejidad temporal
-La solución óptima implementada (Kadane) presenta una complejidad temporal de O(n), lo que garantiza un rendimiento escalable incluso ante volúmenes masivos de datos. Por otro lado, la variante de Divide y Vencerás posee una complejidad de O(nlogn), siendo una alternativa académicamente robusta pero computacionalmente más costosa que la primera."
-
-##### Complejidad espacial
-El Algoritmo de Kadane es óptimo en términos de memoria, presentando una complejidad espacial de O(1), ya que opera in-place y solo requiere un número constante de variables auxiliares. Por el contrario, la solución de Divide y Vencerás tiene una complejidad de O(logn), derivada del uso de la pila de recursión necesaria para procesar las subdivisiones del arreglo.
-
-##### Mejor, peor y promedio cuando aplique
-- Para el algoritmo de Kadane no hay diferencias significativa entre los casos al igual que Divide y Venceras.
-Mejor, Peor y Promedio(Kadane): Todos son O(n).
-Mejor, Peor y Promedio(Divide y Venceras): Todos son O(nlogn).
-
-#### Ubicación aproximada en la jerarquía de crecimiento del curso
-En la jerarquía de crecimiento asintótico, la solución óptima implementada (Kadane) se ubica en la categoría lineal O(n), lo cual representa el límite inferior de complejidad para problemas que requieren la lectura completa de los datos. La solución alternativa de Divide y Vencerás se posiciona ligeramente por encima, en la categoría O(nlogn), siendo ambas significativamente superiores a las soluciones triviales de orden cuadrático.
-
-#### Alternativa ingenua o menos eficiente
-La solución ingenua consiste en un enfoque de fuerza bruta con una complejidad de O(n²). Este método utiliza bucles anidados para iterar sobre todos los pares posibles de índices (inicio y fin) y calcular sus sumas de forma exhaustiva. Aunque es funcional para arreglos pequeños, se vuelve computacionalmente costosa e ineficiente para valores de n superiores a 10⁴, siendo superada ampliamente por el Algoritmo de Kadane (O(n)) y el enfoque de Divide y Vencerás (O(nlogn)) implementados en este proyecto
-
-#### Discusión breve de robustez, degeneración y reutilización
-El sistema demuestra una alta robustez al procesar arreglos con valores negativos extremos gracias a la correcta inicialización de límites. Su principal punto de degeneración potencial es el manejo de vectores vacíos, lo cual es fácilmente mitigable. Finalmente, la estructura modular basada en la clase Solution y el uso de contenedores estándar facilitan su reutilización y escalabilidad en otros módulos de software que requieran análisis de secuencias numéricas.
-
-#### Instrucciones para compilar
-- Para VS Code:
-El código actual es una clase. Para que funcione, necesitamos un archivo que tenga la función main.
-
-[text](src/main.cpp).
-
-#### Instrucciones para ejecutar
-Si preferimos usar la interfaz gráfica:
-
-1.Asegúrarse de tener el archivo .cpp abierto.
-
-2.Método rápido: hacer click en el icono "Play" (Triángulo) en la esquina superior derecha de la pantalla.
-
-3.Selección de compilador: Si te pregunta, elige g++.exe o cl.exe (dependiendo de cuál instalaste).
-
-4.Ver el resultado: Se abrirá automáticamente una pestaña llamada "Terminal" en la parte inferior de VS Code donde aparecerá el mensaje: La suma maxima es: 6.
-
-#### Instrucciones para correr tests
-1. Pasos para correr los tests
-
-1.1.Guarda el archivo con el código anterior.
-
-1.2.Compila: ```bash
-g++ -std=c++11 -o test_suite main.cpp
-1.3.Ejecuta:
-En Windows: .\test_suite.exe
-En Linux/Mac: ./test_suite
-
-#### Breve descripción del benchmark realizado
-La inclusión de este benchmark justifica que para aplicaciones de alto rendimiento o procesamiento de grandes volúmenes de datos (N>106), la eficiencia no solo depende de la complejidad asintótica del algoritmo (como Kadane), sino también de una correcta interacción con las estructuras de datos de la STL para minimizar la latencia de memoria.
-#### Tabla resumida de builds y resultados
-
-  
-
-### Observaciones de sanitizers
-
-  
-
-### Resumen de cobertura
-
-  
-
-### Resumen de profiling
-
-  
-
-### Discusión sobre microoptimización vs algoritmo
-
-  
-
-
-### Qué se usó de Copilot y cómo se validó
-
-Se utilizó GitHub Copilot como asistente de autocompletado para la sintaxis de C++ y para agilizar la escritura de los bucles iterativos en la función `maxCrossingSum`. Todo el código generado fue validado manualmente mediante:
-1. Análisis de complejidad algorítmica para confirmar que los bucles no rompieran el límite de O(n log n).
-2. Ejecución de la suite de pruebas unitarias (`tests.cpp`), verificando que los casos de frontera (arreglos con números negativos extremos) coincidieran al 100% con los resultados teóricos y con el Algoritmo de Kadane.
+1. Progreso de
