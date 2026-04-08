@@ -1,37 +1,75 @@
 #include "solution.hpp"
 #include <iostream>
 #include <vector>
+#include <random>
+#include <chrono> // <-- ¡Aquí es donde debe ir, hasta arriba!
 
 int main() {
     Solution sol;
 
-    // Arreglo de prueba clásico de LeetCode
-    std::vector<int> nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-
-    std::cout << "=== PRUEBA DE ALGORITMOS: MAXIMUM SUBARRAY ===\n";
+    // ====================================================================
+    // PARTE 1: PRUEBA DE CORRECTITUD (Caso clásico de LeetCode)
+    // ====================================================================
+    std::cout << "====================================================\n";
+    std::cout << "  PARTE 1: PRUEBA DE CORRECTITUD (N = 9) \n";
+    std::cout << "====================================================\n";
     
-    // Imprimir el arreglo original para contexto
+    std::vector<int> nums_small = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     std::cout << "Arreglo original: { ";
-    for (int num : nums) {
+    for (int num : nums_small) {
         std::cout << num << " ";
     }
     std::cout << "}\n\n";
 
-    // 1. Prueba con el Algoritmo de Kadane (O(N))
-    int resultKadane = sol.maxSubArrayKadane(nums);
-    std::cout << "[Metodo 1] Algoritmo de Kadane (O(N)):\n";
-    std::cout << "-> Suma maxima encontrada = " << resultKadane << "\n\n";
+    int resKadaneSmall = sol.maxSubArrayKadane(nums_small);
+    int resDivideSmall = sol.maxSubArrayDivideAndConquer(nums_small);
+    
+    std::cout << "[Metodo 1] Kadane            -> Resultado = " << resKadaneSmall << "\n";
+    std::cout << "[Metodo 2] Divide y Venceras -> Resultado = " << resDivideSmall << "\n";
+    
+    if (resKadaneSmall == resDivideSmall) {
+        std::cout << "-> ¡Exito! Ambos algoritmos coinciden en el caso base.\n\n";
+    }
 
-    // 2. Prueba con Divide y Vencerás (O(N log N))
-    int resultDivide = sol.maxSubArrayDivideAndConquer(nums);
-    std::cout << "[Metodo 2] Divide y Venceras (O(N log N)):\n";
-    std::cout << "-> Suma maxima encontrada = " << resultDivide << "\n\n";
+    // ====================================================================
+    // PARTE 2: PRUEBA DE RENDIMIENTO (Carga masiva con Cronometro)
+    // ====================================================================
+    std::cout << "====================================================\n";
+    std::cout << "  PARTE 2: PRUEBA DE RENDIMIENTO (N = 1,000,000) \n";
+    std::cout << "====================================================\n";
+    
+    const int N = 1000000; // 1 millon de elementos
+    std::vector<int> nums_large;
+    nums_large.reserve(N); 
 
-    // Comprobación de que ambos métodos dan el mismo resultado
-    if (resultKadane == resultDivide) {
-        std::cout << "¡Exito! Ambos algoritmos llegaron al mismo resultado.\n";
-    } else {
-        std::cout << "¡Error! Los resultados difieren. Revisa la logica.\n";
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(-1000, 1000);
+
+    for (int i = 0; i < N; ++i) {
+        nums_large.push_back(dis(gen));
+    }
+
+    std::cout << "Procesando un arreglo masivo de 1,000,000 elementos...\n\n";
+
+    // --- Medir Kadane ---
+    auto start_kadane = std::chrono::high_resolution_clock::now();
+    int resKadaneLarge = sol.maxSubArrayKadane(nums_large);
+    auto end_kadane = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> time_kadane = end_kadane - start_kadane;
+
+    // --- Medir Divide y Vencerás ---
+    auto start_divide = std::chrono::high_resolution_clock::now();
+    int resDivideLarge = sol.maxSubArrayDivideAndConquer(nums_large);
+    auto end_divide = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::milli> time_divide = end_divide - start_divide;
+    
+    // --- Resultados ---
+    std::cout << "[Metodo 1] Kadane (O(N)) tardo:            " << time_kadane.count() << " ms\n";
+    std::cout << "[Metodo 2] Divide y Venceras (O(N log N)) tardo: " << time_divide.count() << " ms\n";
+    
+    if (resKadaneLarge == resDivideLarge) {
+        std::cout << "\n-> ¡Exito! Ambos algoritmos coinciden bajo carga extrema.\n\n";
     }
 
     return 0;
