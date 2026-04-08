@@ -2,7 +2,7 @@
 
 #### 👥 Integrantes
 - Rydell Jonel Mosquera Huayhua
-- Joel Gustavo Carhuarica Aguilar
+- Joel Gustavo Carhuarica Aguilar.
 
 #### Competencia del curso Problema asignado
 Diseñar, implementar, analizar y sustentar el Maximum Subarray de arreglos, justificando formalmente su correctitud, complejidad y pertinencia práctica.
