@@ -20,7 +20,7 @@ Desarrollar un algoritmo que calcule la maxima suma de un arreglo mediante el me
 #### Tamaño de entrada relevante
 El algoritmo está diseñado para procesar un vector de tamaño N, donde 1≤N≤10⁵. Para este rango, el enfoque de Kadane es el más óptimo, ya que mantiene una complejidad lineal O(N) y un uso de memoria constante O(1).
 
-##### Descripción de la solución
+##### Descripción de la solución:
 Aunque ambos métodos llegan al mismo resultado, el Algoritmo de Kadane es el preferido para este problema por su eficiencia superior en tiempo y el uso mínimo de memoria (espacio O(1)), ya que no requiere llamadas recursivas ni estructuras de datos adicionales.
 
 #### Justificación de determinismo y factibilidad
