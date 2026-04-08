@@ -1,4 +1,5 @@
 #include "solution.hpp"
+
 #include <iostream>
 #include <vector>
 #include <random>
