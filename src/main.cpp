@@ -1,9 +1,8 @@
 #include "solution.hpp"
-
 #include <iostream>
 #include <vector>
 #include <random>
-#include <chrono> // <-- ¡Aquí es donde debe ir, hasta arriba!
+#include <chrono> 
 
 int main() {
     Solution sol;

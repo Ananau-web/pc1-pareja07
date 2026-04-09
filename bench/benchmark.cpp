@@ -3,8 +3,7 @@
 #include <chrono>
 #include <random>
 
-// --- INCLUYE AQUÍ TU CLASE SOLUTION ---
-// #include "../src/solution.hpp" (o pega la clase aquí para probar rápido)
+
 
 // --- EXPERIMENTO STL: reserve() vs sin reserve() ---
 void benchmarkReserve(int N) {
