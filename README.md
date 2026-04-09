@@ -110,3 +110,11 @@ Inyectamos un arreglo de $N = 1,000,000$ de elementos y medimos los tiempos:
 En `bench/benchmark.cpp`, evaluamos el impacto de la asignación dinámica de memoria comparando el tiempo de inserción de $10^7$ elementos en un `std::vector`.
 * **Resultado empírico:** El tiempo de inserción estándar (sin pre-asignación) fue de **~112.6 ms**. Al utilizar el método `.reserve(N)`, el tiempo se redujo a **~91.5 ms**.
 * **Conclusión:** El uso de `reserve()` hizo que la ejecución fuera un **23% más rápida (1.23x)**. A nivel de ingeniería, la eficiencia real requiere tanto de un algoritmo matemático óptimo como de buenas prácticas de programación (pre-asignación) para evitar reubicaciones costosas en la memoria RAM y Caché.
+
+---
+
+## 7. Video de Sustentación
+
+En el siguiente enlace de Google Drive se encuentra el video de nuestra exposición, donde sustentamos la teoría algorítmica, los resultados de Profiling (`gprof`), la cobertura de código (`gcov`) y los benchmarks ejecutados:
+
+🎥 **[Ver Video de Sustentación en Google Drive](https://drive.google.com/file/d/17aSlEtIWU3Ajv4umyjnmywm0v2VYSUlL/view?usp=sharing)**
