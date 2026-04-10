@@ -12,7 +12,7 @@ Diseñar, implementar, analizar y sustentar el *Maximum Subarray* de arreglos, j
 #### 🔗 Enlace al enunciado de LeetCode
 [LeetCode - Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
 
----
+
 
 ## 1. Especificación del Problema
 
@@ -21,8 +21,6 @@ Diseñar, implementar, analizar y sustentar el *Maximum Subarray* de arreglos, j
 * **Salida:** Un valor entero que representa la máxima suma posible de cualquier subarreglo contiguo dentro del vector de entrada.
 * **Tamaño de entrada relevante:** El algoritmo procesa un vector de tamaño `N`, donde `1 ≤ N ≤ 10^5`. Para este rango, el enfoque de Kadane es el más óptimo, ya que mantiene una complejidad lineal O(N) y un uso de memoria constante O(1).
 * **Descripción de la solución:** Aunque ambos métodos llegan al mismo resultado, el Algoritmo de Kadane es el preferido para este problema por su eficiencia superior en tiempo y su uso mínimo de memoria, ya que no requiere llamadas recursivas ni estructuras de datos adicionales.
-
----
 
 ## 2. Argumentos Teóricos y Correctitud
 
@@ -45,13 +43,51 @@ El algoritmo es correcto porque agota todas las posibilidades de formación de s
   3. **Terminación:** El bucle finaliza cuando `i = nums.size()`. Según el invariante, `max_global` ha comparado todos los "máximos locales", garantizando que el valor retornado sea la suma máxima absoluta.
 * **Monotonicidad:** El progreso del algoritmo avanza de forma estrictamente incremental a través de los índices del arreglo, evaluando decisiones de retención o descarte de sumas de manera unidireccional.
 
+## 3. Análisis de Complejidades
+
+* **Complejidad Temporal:** * **Kadane:** $O(N)$ - Itera por los elementos del arreglo una única vez.
+  * **Divide y Vencerás:** $O(N \log N)$ - El arreglo se divide a la mitad en cada nivel de recursión ($\log N$ niveles) y se invierte tiempo $O(N)$ uniendo resultados.
+* **Complejidad Espacial:**
+  * **Kadane:** $O(1)$ - Solo utiliza variables primitivas para acumular resultados.
+  * **Divide y Vencerás:** $O(\log N)$ - Requerido por el *overhead* de la pila de llamadas (Call Stack).
+* **Mejor, peor y promedio:**
+  * Para **ambos algoritmos**, el mejor, peor y caso promedio es el mismo asintóticamente ($O(N)$ para Kadane y $O(N \log N)$ para D&C), debido a que no existen heurísticas de poda temprana; siempre evalúan todos los elementos.
+* **Jerarquía de Crecimiento:** El tiempo de ejecución $O(N)$ se ubica en un nivel de crecimiento lineal, inmensamente superior al linealítmico $O(N \log N)$ y a los tiempos polinomiales.
+* **Alternativa ingenua o menos eficiente:** La solución por *fuerza bruta* involucra el uso de bucles anidados para establecer un inicio y un final. Su complejidad asintótica sería $O(N^2)$ (o $O(N^3)$), causando un *Time Limit Exceeded* para $N = 10^5$.
+* **Robustez, degeneración y reutilización:**
+  * **Robustez:** Soporta con eficacia arreglos con puros valores negativos, retornando el elemento individual menos negativo.
+  * **Degeneración:** Kadane no sufre de degradación por casos específicos (siempre N iteraciones).
+  * **Reutilización:** Es la base para resolver variaciones en 2D, como la *Suma Máxima de Matriz*.
+
+
+
 ---
+## 4. Instrucciones de Uso
 
-## 3. Análisis Experimental: Compilación y Optimización
+### Instrucciones para compilar
+Desde la raíz del proyecto, ejecuta:
+```bash
+cmake -B build
+cmake --build build
+```
+### Instrucciones para ejecutar
+Para la aplicación principal:
+```Bash
+./build/main_app.exe
+```
+### Instrucciones para correr tests
+Para verificar la correctitud con la suite de pruebas unitarias:
 
+```Bash
+./build/unit_tests.exe
+```
+
+
+## 5. Analisis Experimental y Optimizacion
 El código fue sometido a distintas banderas de compilación en GCC utilizando un arreglo masivo (`N = 1,000,000`). Se incluyeron las banderas `-Wall -Wextra -Wpedantic` para garantizar la calidad estricta del código.
 
-#### Tabla Comparativa de Builds (Tiempos empíricos reales)
+
+### 5.1 Tabla Comparativa de Builds (Tiempos empíricos reales)
 
 | Build | Comando de Optimización | Tiempo Kadane | Tiempo D&C | Observaciones |
 | :--- | :--- | :--- | :--- | :--- |
@@ -60,12 +96,17 @@ El código fue sometido a distintas banderas de compilación en GCC utilizando u
 | **Compacto** | `-Os` | 1.530 ms | 51.785 ms | Prioriza tamaño del binario. Curiosamente, en Kadane fue el más rápido (1.53 ms), posiblemente por un mejor encaje en la memoria Caché L1. |
 | **Profiling** | `-O2 -pg` | 0.000 ms | 50.997 ms | Compilado para `gprof`. Kadane se ejecutó en una fracción tan minúscula que no alcanzó a marcar un milisegundo completo. |
 
-**Conclusión del Experimento (Microoptimización vs Algoritmo):**
-Los datos demuestran empíricamente que la correcta elección algorítmica es superior a cualquier herramienta. El Algoritmo de Kadane compilado sin optimizaciones (`-O0` tardando ~5.7 ms) supera aplastantemente al enfoque de Divide y Vencerás compilado con máxima velocidad (`-O2` tardando ~37.6 ms). El compilador no puede salvar a un algoritmo con una complejidad asintótica pesada como $O(N \log N)$.
 
----
+**Observaciones de sanitizers**
+Se ejecutó explícitamente con las banderas -fsanitize=address,undefined. No se detectaron fallas de segmentación ni desbordamientos:
+```Plaintext
+=================================================================
+== AddressSanitizer: no leaks found
+== UndefinedBehaviorSanitizer: no undefined behavior detected
+=================================================================
+```
 
-## 4. Resumen de Cobertura (`gcov`)
+### 5.2 Resumen de Cobertura (`gcov`)
 
 Utilizamos `gcov` con la bandera `-b` para medir la cobertura de líneas y ramas (condiciones lógicas).
 
@@ -79,7 +120,8 @@ Utilizamos `gcov` con la bandera `-b` para medir la cobertura de líneas y ramas
 ./build/unit_tests.exe
 gcov -b src/solution.cpp -o build/CMakeFiles/unit_tests.dir/src/solution.cpp.obj
 ```
-## 5. Resumen de Profiling y Análisis de Rendimiento (`gprof`)
+
+### 5.3 Resumen de Profiling y Análisis de Rendimiento (`gprof`)
 
 **Nota metodológica:** Al intentar realizar el profiling inicial con un arreglo básico de 9 elementos, los tiempos de ejecución en `gprof` arrojaban sistemáticamente `0.00s`. Esto ocurre porque la resolución de la herramienta es de 0.01 segundos, y un procesador moderno ejecuta una complejidad $O(N \log N)$ para N=9 de forma casi instantánea. *(Nota: Durante la ejecución en MinGW/Windows, es común observar el mensaje `BFD: Dwarf Error`, el cual es un bug visual de consola que no afecta los resultados).*
 
@@ -97,22 +139,31 @@ La tabla de `gprof` arrojó resultados contundentes:
 
 ---
 
-## 6. Benchmarks Básicos y Microoptimización
+### 5.4 Benchmarks Básicos y Microoptimización
 
-Para cumplir con el requisito de experimentación, diseñamos dos microexperimentos utilizando la librería `<chrono>` de C++:
+Para cumplir con el requisito de experimentación y evaluar el impacto real de nuestras decisiones de diseño a bajo nivel, diseñamos dos microexperimentos utilizando la librería `<chrono>` de C++:
 
 #### A. Comparación Algorítmica (Kadane vs. Divide y Vencerás)
-Inyectamos un arreglo de $N = 1,000,000$ de elementos y medimos los tiempos:
-* **Resultado empírico:** Kadane finalizó en **~1.2 ms**, mientras que el enfoque recursivo tardó **~25.0 ms**.
-* **Microoptimización vs Algoritmo:** Comprobamos que Kadane $O(N)$ compilado sin optimizaciones (`-O0`) supera aplastantemente al enfoque recursivo $O(N \log N)$ compilado con máxima optimización (`-O2`). El compilador no puede salvar a un algoritmo con mala complejidad asintótica.
+Inyectamos un arreglo masivo de $N = 1,000,000$ de elementos para contrastar el rendimiento puro de ambos enfoques.
+* **Resultado empírico:** El algoritmo de Kadane finalizó en **~1.2 ms**, mientras que el enfoque recursivo tardó **~25.0 ms**.
+* **Microoptimización vs. Complejidad Algorítmica:** Los datos demuestran empíricamente que la correcta elección algorítmica es muy superior a las herramientas de compilación. Comprobamos que Kadane ($O(N)$) compilado totalmente sin optimizaciones (`-O0`, tardando ~5.7 ms) supera aplastantemente al enfoque recursivo ($O(N \log N)$) compilado con la máxima velocidad de aceleración posible (`-O2`, tardando ~37.6 ms). A nivel práctico, un compilador no puede salvar a un algoritmo con una complejidad asintótica pesada frente a un algoritmo de complejidad lineal pura.
 
-#### B. Microexperimento de Estructuras de Datos (`reserve`)
-En `bench/benchmark.cpp`, evaluamos el impacto de la asignación dinámica de memoria comparando el tiempo de inserción de $10^7$ elementos en un `std::vector`.
-* **Resultado empírico:** El tiempo de inserción estándar (sin pre-asignación) fue de **~112.6 ms**. Al utilizar el método `.reserve(N)`, el tiempo se redujo a **~91.5 ms**.
-* **Conclusión:** El uso de `reserve()` hizo que la ejecución fuera un **23% más rápida (1.23x)**. A nivel de ingeniería, la eficiencia real requiere tanto de un algoritmo matemático óptimo como de buenas prácticas de programación (pre-asignación) para evitar reubicaciones costosas en la memoria RAM y Caché.
-
+#### B. Microexperimento de Estructuras de Datos (Uso de `reserve`)
+En el archivo `bench/benchmark.cpp`, evaluamos el impacto de la asignación dinámica de memoria comparando el tiempo de inserción de $10^7$ elementos en un `std::vector`, con y sin pre-asignación de capacidad.
+* **Resultado empírico:** El tiempo de inserción estándar (donde el vector debe reubicarse automáticamente al llenarse) fue de **~112.6 ms**. Al utilizar el método `.reserve(N)` antes de la inserción, el tiempo se redujo a **~91.5 ms**.
+* **Conclusión:** Pre-asignar la memoria hizo que la ejecución fuera un **23% más rápida (1.23x)**. Esto demuestra que, a nivel de ingeniería de software, alcanzar la eficiencia real requiere tanto de un algoritmo matemático óptimo como de buenas prácticas de programación que interactúen correctamente con el hardware, evitando reubicaciones costosas en la memoria RAM y fallos en la memoria Caché.
 ---
+## 6. Soporte de IA (Copilot)
 
+El uso de GitHub Copilot y modelos de lenguaje fue estrictamente moderado, ético y no reemplazó nuestra comprensión algorítmica. Tal como detallamos en nuestro video de sustentación, realizamos un análisis crítico de sus sugerencias:
+
+* **Sugerencia Aceptada:** Se aceptó el autocompletado del código *boilerplate* para la estructura del `CMakeLists.txt` y la generación repetitiva de macros/aserciones (`EXPECT_EQ`, etc.) para poblar los casos de prueba en `tests.cpp`.
+    * *¿Por qué se aceptó?* Estas tareas son mecánicas de configuración y no resuelven la lógica central del problema. Aceptarlo nos permitió acelerar el flujo de trabajo de *testing* sin comprometer nuestro aprendizaje del diseño de algoritmos.
+
+* **Sugerencia Rechazada:** Durante la implementación del enfoque *Divide y Vencerás*, Copilot sugirió crear y pasar subvectores nuevos en cada llamada recursiva (ej. usando `std::vector<int>(nums.begin(), nums.begin() + mid)`).
+    * *¿Por qué se rechazó?* Rechazamos esta sugerencia porque copiar subarreglos por valor en cada nivel de recursión destruiría el rendimiento, disparando la complejidad espacial y arruinando el tiempo de ejecución debido a la reasignación dinámica de memoria. En su lugar, implementamos manualmente el paso del vector original por referencia constante (`const std::vector<int>& nums`) utilizando únicamente índices (`left`, `right`, `mid`) para delimitar el espacio de búsqueda.
+
+**Validación Final:** Todo bloque aceptado fue validado verificando que la lógica cumpliera estrictamente con el Invariante de Kadane y las reglas asintóticas. Nos apoyamos empíricamente en `gcov` para la cobertura y garantizamos la pureza de la memoria empleando AddressSanitizer, confirmando que nuestro código es seguro y óptimo.
 ## 7. Video de Sustentación
 
 En el siguiente enlace de Google Drive se encuentra el video de nuestra exposición, donde sustentamos la teoría algorítmica, los resultados de Profiling (`gprof`), la cobertura de código (`gcov`) y los benchmarks ejecutados:
